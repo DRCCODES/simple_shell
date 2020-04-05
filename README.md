@@ -1,1 +1,2 @@
-Simple Shell Sample README file
+Simple Shell Readme (Gray was here)
+So was Goro Majima!
