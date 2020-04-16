@@ -6,13 +6,13 @@
  * @envp: target to get size of
  * Return: int j;
  */
-char size_of_envp(char **envp)
+int size_of_envp(char **envp)
 {
 	int j = 0;
 
 	while (*envp)
 {
-	*envp++;
+	envp++;
 	j++;
 }
 return (j);
@@ -47,7 +47,7 @@ void bezeros(void *s, size_t n)
 {
 	char *c = s;
 
-	int i = 0;
+	size_t i = 0;
 
 	for (i = 0; i < n; ++i)
 	c[i] = '\0';
