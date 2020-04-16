@@ -1,3 +1,4 @@
+#include "shell.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
@@ -65,18 +66,19 @@ char *_strdup(char *str)
 	char *p = NULL;
 	int i;
 	int len;
+	char *narr;
+	len = _strlen(str);
 
 	if (str == NULL || str == 0)
 		return (p);
 
-	char *narr = (char *)malloc(len + 1);
+	narr = (char *)malloc(len + 1);
 
 	if (narr == NULL)
 	{
 		return (p);
 	}
 
-	len = _strlen(str);
 	if (len > 0)
 	{
 		for (i = 0; i <= len; i++)
