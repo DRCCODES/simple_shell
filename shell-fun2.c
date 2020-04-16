@@ -1,3 +1,11 @@
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 /**
  * _strcmp - compares strs like library strcmp
  *
@@ -45,26 +53,7 @@ char *_strcat(char *dest, char *src)
 		}
 	return (dest);
 }
-/**
-* _strlen - returns length of string
-* @str: string input
-*
-* Return: length
-*/
-int _strlen(char *str)
-{
-	int i;
 
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		continue;
-	}
-	if (i > 0)
-	{
-		return (i);
-	}
-	return (0);
-}
 /**
 * _strdup - duplicates a string
 * @str: string input

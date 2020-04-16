@@ -1,96 +1,99 @@
-#include <unistd.h>
+#include "shell.h"
 
-#include <stdio.h>
-
-#include <string.h>
-
-#include <stdlib.h>
-
-#include <sys/wait.h>
-
-#include <sys/types.h>
-
-#include <sys/stat.h>
-
-#include <fcntl.h>
-
-int is_it_there(const char * path) {
-  struct stat path_stat;
-  stat(path, & path_stat);
-  return S_ISREG(path_stat.st_mode);
+int _fputs(char *p)
+{
+	write (1, p, _strlen (p));
+	return(0);
 }
 
-int main(int argc, char ** args, char ** envp) {
-  while (1) {
-    char input[1024];
-    char * ptr = input;
-    char * args[1024] = {
-      NULL
-    };
-    char * path = getenv("PATH");
-    char * x = strtok(path, ":");
-    int j = 0;
-    int z;
-    char * box[1024];
-    char * chest;
-    size_t n = sizeof(path) / sizeof(path[0]);
-    size_t size = 0;
-    int check = 0;
-    char * tmp;
-    int wstatus;
+void sigintHandler(int sig_num) 
+{ 
+    signal(SIGINT, sigintHandler); 
+    printf("\n$ "); 
+    fflush(stdout); 
+} 
 
-    while (x != NULL) {
-      box[j++] = x;
-      x = strtok(NULL, ":");
+
+void copy_envp(char **envp,char **my_envp)
+{
+	int i;
+	for(i = 0; envp[i] != NULL; i++) {
+		my_envp[i] = (char *)malloc(sizeof(char) * (_strlen(envp[i]) + 1));
+		_memcpy(my_envp[i], envp[i], _strlen(envp[i]));
+	}
+}
+
+int main( int argc, char **args, char **envp)
+{
+    signal(SIGINT, sigintHandler); 
+    char *path = (char *)malloc(sizeof(char) * 256);
+    char **my_envp = malloc(sizeof(envp) * size_of_envp(envp) + 1);
+    int i = 0;
+    
+    copy_envp(envp,my_envp);
+    get_path(my_envp, path);
+
+    char *array[sizeof(path) + 1];
+    char *x = path;
+    x += 5;
+    x = strtok(x,":");
+        while (x != NULL)
+    {
+        array[i++] = x;
+        x = strtok (NULL, ":");
     }
-
-    printf("$ ");
-    getline( & ptr, & size, stdin);
-
-    if ( * ptr == '\n') continue;
-
-    for (int i = 0; i < sizeof(args) && * ptr; ptr++) {
-      if ( * ptr == ' ') continue;
-      if ( * ptr == '\n') break;
-      for (args[i++] = ptr;* ptr && * ptr != ' ' && * ptr != '\n'; ptr++);
-      * ptr = '\0';
+    char c;
+    
+    for(;;) {
+        char *ptr = (char *)malloc(sizeof(char) * 256);
+        size_t size = 32;
+        char *args[1024] = {NULL};
+        int wstatus;
+        int check;
+        char *tmp;
+        int z = 0;
+        _fputs("$ ");
+        c = getline(&ptr, &size, stdin);
+        if (c == EOF) return (0);
+        if (*ptr == '\n') continue;
+        for (i = 0; i < sizeof(args) && *ptr; ptr++) {
+            if (*ptr == ' ') continue;
+            if (*ptr == '\n') break;
+            for (args[i++] = ptr; *ptr && *ptr != ' ' && *ptr != '\n'; ptr++);
+            *ptr = '\0';
+        }
+        if (_strcmp(args[0], "/") != 0)
+            while(z < sizeof(path) - 1)
+            {
+                tmp = strdup(array[z]);
+                if(z == 0)
+                {
+                 tmp = _strcat(tmp , args[0]);
+                }
+                else
+                {
+                tmp = strcat(tmp,"/");
+                tmp = strcat(tmp , args[0]);
+                }
+                check = is_it_there(tmp);
+                if (check == 1)
+                {
+                args[0] = tmp;
+                break;
+                }
+                z++;
+            }
+        if (_strcmp("exit", args[0]) == 0) return 0;
+   if (fork() == 0)
+        {
+        exit(execve(args[0], args, my_envp));
+        }
+    if (check != 1)
+    {
+        _fputs(args[0]);
+        _fputs(": command not found\n");
     }
-
-    if (strcmp("exit", args[0]) == 0) return 0;
-
-    for (z = 0; z < n - 1; z++) {
-      //strcat(str1, str2);
-      chest = strdup(box[z]);
-      if (z == 0) {
-
-        tmp = strcat(chest, args[0]);
-      } else {
-        tmp = strcat(chest, "/");
-        tmp = strcat(tmp, args[0]);
-
-      }
-
-      //printf("%s\n",tmp);
-      check = is_it_there(tmp);
-      if (check == 1) {
-        args[0] = tmp;
-        break;
-      }
-      z++;
+        free_args(args);
+        wait(&wstatus);
     }
-
-    signal(SIGINT, SIG_DFL);
-
-    if (fork() == 0) {
-      if (execve(args[0], args, NULL) == -1) {
-        perror("Error:");
-      } else {
-        exit(execve(args[0], args, NULL));
-      }
-    }
-    signal(SIGINT, SIG_IGN);
-
-    wait( & wstatus);
-
-  }
 }
