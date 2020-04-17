@@ -47,7 +47,7 @@ void copy_envp(char **envp, char **my_envp)
 */
 char *path_check(char *args, char *array[], char *path)
 {
-0nt check;
+int check;
 size_t z = 0;
 char *tmp;
 

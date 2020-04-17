@@ -25,6 +25,6 @@ int _fputs(char *p);
 void copy_envp(char **envp, char **my_envp);
 char *path_check(char *args, char *array[], char *path);
 int *split_path(char *x, char *array[]);
-int *split_to_args(char *ptr,char **args);
+int *split_to_args(char *ptr, char **args);
 
 #endif

@@ -4,7 +4,7 @@
 *
 * Return: N/A
 */
-void sigintHandler(void)
+void sigintHandler()
 {
 	signal(SIGINT, sigintHandler);
 	printf("\n$ ");
