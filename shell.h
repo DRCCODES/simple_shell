@@ -21,7 +21,10 @@ int is_it_there(const char *path);
 void bezeros(void *s, size_t n);
 void free_args(char **my_args);
 void get_path(char **tmp_envp, char *path);
-
-
+int _fputs(char *p);
+void copy_envp(char **envp, char **my_envp);
+char *path_check(char *args, char *array[], char *path);
+int *split_path(char *x, char *array[]);
+int *split_to_args(char *ptr,char **args);
 
 #endif
