@@ -1,0 +1,45 @@
+.\" Man page for _shell
+.TH man 1 "16 April 2020" "1.0" "_shell man page"
+.SH NAME
+_shell - takes arguments and interprets simple commands
+.SH SYNOPSIS
+#include "shell.h"
+.br
+#include <stdarg.h>
+.br
+#include <stdlib.h>
+.br
+.br
+
+.SH DESCRIPTION
+.SS Return value
+.SS
+.br
+.SS
+.br
+.br
+.br
+.br
+.br
+.br
+.br
+.br
+.br
+.SH EXAMPLE
+.br
+.br
+.br
+.br
+.br
+.SS General Formatting:
+.br
+.br
+.SH SEE ALSO
+.br
+.SH BUGS
+No known bugs.
+.SS
+.br
+Page produced by the work of
+.SH AUTHORS
+.B Ethan Greene and David Cristancho
