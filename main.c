@@ -48,7 +48,7 @@ char *array[sizeof(path) + 1];
 char *x = (char *)malloc(sizeof(char) * 256);
 char *ptr = (char *)malloc(sizeof(char) * 1024);
 size_t size = 1024;
-char *args[1024] = {NULL}, *tmp;
+char *args[1024] = {NULL};
 int wstatus;
 
 x = strdup(path);
