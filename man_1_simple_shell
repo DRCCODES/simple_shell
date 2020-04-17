@@ -2,7 +2,7 @@
 .TH man 1 "16 April 2020" "1.0" "_shell man page"
 .SH NAME
 _shell - takes arguments and interprets simple commands
-.SH SYNOPSIS
+.SH SYNOPSIS||
 #include "shell.h"
 .br
 #include <stdarg.h>
@@ -25,10 +25,7 @@ _shell - takes arguments and interprets simple commands
 .br
 .br
 .br
-.SH EXAMPLE
-.br
-.br
-.br
+.SH EXAMPLES
 .br
 .br
 .SS General Formatting:
@@ -37,7 +34,7 @@ _shell - takes arguments and interprets simple commands
 .SH SEE ALSO
 .br
 .SH BUGS
-No known bugs.
+ Doesn't pipe commands, and echo is not functional
 .SS
 .br
 Page produced by the work of
