@@ -67,6 +67,7 @@ char *_strdup(char *str)
 	int i;
 	int len;
 	char *narr;
+
 	len = _strlen(str);
 
 	if (str == NULL || str == 0)

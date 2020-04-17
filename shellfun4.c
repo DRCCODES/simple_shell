@@ -115,7 +115,7 @@ int *split_to_args(char *ptr, char **args)
 			break;
 		}
 		for (args[i++] = ptr; *ptr && *ptr != ' ' && *ptr != '\n'; ptr++)
-		;	
+		;
 		*ptr = '\0';
 	}
 return (0);
