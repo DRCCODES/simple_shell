@@ -51,10 +51,15 @@ int check;
 size_t z = 0;
 char *tmp;
 
+tmp = strdup(args);
+
 if (strncmp(args, "/", 1) != 0)
 	while (z < sizeof(path) - 1)
 	{
 		tmp = strdup(array[z]);
+		printf("%s\n",tmp);
+		if (check == 1)
+			break;
 		if (z == 0)
 		{
 			tmp = strcat(tmp, args);
